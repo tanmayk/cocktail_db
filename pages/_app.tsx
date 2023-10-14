@@ -2,10 +2,11 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import type { Metadata } from 'next'
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Montserrat } from 'next/font/google'
+import { Itim } from 'next/font/google'
 import Layout from '@/components/Layout'
 
-const montserrat = Montserrat({
+const itim = Itim({
+  weight: '400',
   subsets: ['latin']
 })
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export default function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient()
   return (
-    <main className={montserrat.className}>
+    <main className={itim.className}>
       <QueryClientProvider client={queryClient}>
         <Layout>
           <Component {...pageProps} />

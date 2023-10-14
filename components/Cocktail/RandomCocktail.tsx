@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Loader from '@/components/Loader'
+import CardLoader from '@/components/CardLoader'
 import CocktailCard from '@/components/Cocktail/Card/CocktailCard'
 
 // Returns random cocktail card.
@@ -29,7 +29,7 @@ export default function RandomCocktailCard() {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <CardLoader />
       ) : (
         <CocktailCard
           cocktail={cocktail}

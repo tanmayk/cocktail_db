@@ -1,11 +1,11 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import Loader from '@/components/Loader'
+import CardLoader from '@/components/CardLoader'
 import CocktailCard from '@/components/Cocktail/Card/CocktailCard'
 
-// Returns random cocktail card.
-export default function CocktailList() {
+// Returns cocktail list.
+export default function CocktailList({ letter }) {
   // API URL.
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   // Default state values.
@@ -13,9 +13,14 @@ export default function CocktailList() {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch random cocktail.
-    fetch(`${apiUrl}/search.php?f=a`)
-      .then((response) => response.json())
+    // Fetch cocktail list.
+    fetch(`${apiUrl}/search.php?f=${letter}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then((data) => {
         const cocktails = data.drinks;
         // Response has been fetched sucessfully.
@@ -23,14 +28,23 @@ export default function CocktailList() {
         setCocktails(cocktails)
         setLoading(false)
       });
-  }, []);
+  }, [apiUrl, letter]);
 
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <div className="w-full grid grid-cols-4 gap-4">
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+          <CardLoader />
+        </div>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="w-full grid grid-cols-4 gap-4">
         {cocktails.map((cocktail) => (
           <CocktailCard
             key={cocktail.idDrink}

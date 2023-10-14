@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useCocktail } from '@/services/api'
 import Header from '@/components/Header'
 import Loader from '@/components/Loader'
+import Image from 'next/image'
 
 export default function CocktailPage() {
   const router = useRouter()
@@ -31,8 +32,24 @@ export default function CocktailPage() {
         <Head>
           <title>{cocktail.strDrink}</title>
         </Head>
-        <div className="min-h-screen p-24">
-          <h1>{cocktail.strDrink}</h1>
+        <div className="flex flex-col items-center justify-between p-24">
+          <h1 className="text-red-600 text-4xl">{cocktail.strDrink}</h1>
+          <div className="text-blue-950 text-lg my-1">{cocktail.strAlcoholic} - {cocktail.strCategory}</div>
+        </div>
+        <div className="w-full grid grid-cols-2 gap-4">
+          <div className="cocktail-info-wrapper">
+            Cocktail Info
+          </div>
+          <div className="cocktail-img">
+            <Image
+              className="rounded-t-lg"
+              src={cocktail.strDrinkThumb}
+              alt={cocktail.strDrink}
+              width={420}
+              height={420}
+              priority={false}
+            />
+          </div>
         </div>
       </>
     )
