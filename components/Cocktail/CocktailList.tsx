@@ -17,16 +17,24 @@ export default function CocktailList({ letter }) {
     fetch(`${apiUrl}/search.php?f=${letter}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok.');
         }
-        return response.json();
+        const contentType = response.headers.get('content-type')
+        if (contentType && contentType.includes('application/json')) {
+          return response.json()
+        }
+        else {
+          return {drinks: []}
+        }
       })
       .then((data) => {
-        const cocktails = data.drinks;
-        // Response has been fetched sucessfully.
-        // Set the cocktails & disable the loader.
-        setCocktails(cocktails)
-        setLoading(false)
+        if (data && data.drinks) {
+          const cocktails = data.drinks.sort((a, b) => a.strDrink.localeCompare(b.strDrink));
+          // Response has been fetched sucessfully.
+          // Set the cocktails & disable the loader.
+          setCocktails(cocktails)
+          setLoading(false)
+        }
       });
   }, [apiUrl, letter]);
 

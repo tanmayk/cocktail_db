@@ -22,7 +22,7 @@ export default function CocktailCard({cocktail}) {
         />
         <div className="px-5 py-5">
           <Link href={cocktailHref}>
-            <h2 className="my-2 text-gray-900 dark:text-white">{cocktailName}</h2>
+            <h2 className="my-2 text-red-600 dark:text-white">{cocktailName}</h2>
           </Link>
         </div>
       </div>
